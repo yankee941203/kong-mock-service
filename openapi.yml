@@ -1,0 +1,48 @@
+openapi: '3.0.3'
+info:
+  title: KONG Mock Service
+  version: '1.0'
+servers:
+  - url: http://0.0.0.0:8000/rest/v1
+paths:
+  /services:
+    get:
+      summary: Get a list of service infos (support filtering, sorting and pagination)
+      parameters:
+        - name: page
+          schema: 
+            type: integer
+          in: query
+          description: The page number of current request 
+        - name: page_size
+          schema:
+            type: integer
+          in: query
+          description: The page size of current request
+        - name: name
+          schema:
+            type: string
+          in: query
+          description: The service name which caller want to filter out
+        - name: sort_by
+          schema:
+            type: string
+          in: query
+          description: The field name of service info which caller want to sort by
+      responses:
+        '200':
+          description: Body with meta data and a list of service infos
+
+  /service/{service_id}:
+    get:
+      summary: Get a particular service by service_id
+      parameters:
+        - name: service_id
+          schema:
+            type: integer
+          in: path
+          description: The service id
+          required: true
+      responses:
+        '200':
+          description: The service detail info
